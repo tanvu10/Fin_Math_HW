@@ -11,10 +11,10 @@ def simulation(step):
         if i == 0:
             random_list.append(0)
         else:
-            random_list.append(0.3 + random.normal(loc = 0, scale = 1, size =1 ) + random_list[i-1])
+            random_list.append(0 + random.normal(loc = 0, scale = 1, size =1 ) + random_list[i-1])
     return random_list
 
-v1 = simulation(10)
+v1 = simulation(1000)
 plt.plot(v1)
 plt.show()
 
@@ -24,10 +24,12 @@ def proba_k_step(step, time_simu):
     proba_list = []
     for i in range(time_simu):
         proba_list.append(simulation(step)[-1])
+    plt.hist(np.array(proba_list), bins = 30)
+    plt.show()
     proba = len([j for j in proba_list if j >0])/len(proba_list)
     print(proba)
 
 #probability from simulation
 proba_k_step(10, 100000)
 #probability from formula:
-print(1- norm.cdf(-3/np.sqrt(10)))
+# print(1- norm.cdf(-3/np.sqrt(10)))
